@@ -1,50 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Board from "./Board";
 
-const Game = () => {
+const Game = React.memo(() => {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [winner, setWinner] = useState(null);
   const [player, setPlayer] = useState(null);
   const [cpuPlayer, setCpuPlayer] = useState(null);
 
-  const handlePlayerSelect = (selectedSymbol) => {
+  const handlePlayerSelect = useCallback((selectedSymbol) => {
     setPlayer(selectedSymbol);
     if (selectedSymbol === "X") {
       setCpuPlayer("0");
     } else {
       setCpuPlayer("X");
     }
-  };
+  }, []);
 
-  const handleClick = async (index) => {
-    if (winner || board[index] !== null) return;
-    const newBoard = [...board];
-    newBoard[index] = player;
-    setBoard(newBoard);
-    const isWinnerFound = checkWinner(newBoard, player);
-    if (isWinnerFound) {
-      return;
-    }
-    await makeComputerMove(newBoard);
-  };
-
-  const makeComputerMove = async (board) => {
-    const response = await fetch(
-      "https://hiring-react-assignment.vercel.app/api/bot",
-      {
-        method: "POST",
-        body: JSON.stringify(board),
+  const handleClick = useCallback(
+    async (index) => {
+      if (winner || board[index] !== null) return;
+      const newBoard = [...board];
+      newBoard[index] = player;
+      setBoard(newBoard);
+      const isWinnerFound = checkWinner(newBoard, player);
+      if (isWinnerFound) {
+        return;
       }
-    );
-    const data = await response.json();
-    const computerMove = data;
-    const newBoard = [...board];
-    newBoard[computerMove] = cpuPlayer;
-    setBoard(newBoard);
-    checkWinner(newBoard, cpuPlayer);
-  };
+      await makeComputerMove(newBoard);
+    },
+    [board, player, winner]
+  );
 
-  const checkWinner = (board, currentPlayer) => {
+  const makeComputerMove = useCallback(
+    async (board) => {
+      const response = await fetch(
+        "https://hiring-react-assignment.vercel.app/api/bot",
+        {
+          method: "POST",
+          body: JSON.stringify(board),
+        }
+      );
+      const data = await response.json();
+      const computerMove = data;
+      const newBoard = [...board];
+      newBoard[computerMove] = cpuPlayer;
+      setBoard(newBoard);
+      checkWinner(newBoard, cpuPlayer);
+    },
+    [cpuPlayer]
+  );
+
+  const checkWinner = useCallback((board, currentPlayer) => {
     const winningCombos = [
       [0, 1, 2],
       [3, 4, 5],
@@ -70,7 +76,7 @@ const Game = () => {
     }
 
     return false;
-  };
+  }, []);
 
   return (
     <div className="game">
@@ -93,6 +99,6 @@ const Game = () => {
       )}
     </div>
   );
-};
+});
 
 export default Game;
