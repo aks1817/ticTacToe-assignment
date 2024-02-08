@@ -1,15 +1,17 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #222;
 }
 
 .game {
   text-align: center;
+  color: #fff;
 }
 
 .select-player {
@@ -20,25 +22,39 @@ body {
   font-size: 18px;
   padding: 10px 20px;
   margin: 0 10px;
+  background-color: #ff5f6d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.select-player button:hover {
+  background-color: #ff424d;
 }
 
 .board {
   display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-gap: 10px;
+  grid-template-columns: repeat(3, 120px);
+  grid-gap: 15px;
 }
 
 .box {
-  width: 100px;
-  height: 100px;
-  font-size: 24px;
-  background-color: #eee;
-  border: 1px solid #aaa;
+  width: 120px;
+  height: 120px;
+  font-size: 48px;
+  background-color: #f2f2f2;
+  border: 3px solid #666;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .box:hover {
-  background-color: #ddd;
+  background-color: #e5e5e5;
 }
 
 .winner {
@@ -48,5 +64,7 @@ body {
 }
 
 .winning-box {
-  background-color: #74e291;
+  background-color: #3bd8c9;
+  border-color: #26b3a6;
+  color: #fff;
 }
