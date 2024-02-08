@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import Box from "./Box";
 
 // Board component
-const Board = React.memo(({ board, handleClick }) => {
+const Board = React.memo(({ board, handleClick, winningSequence }) => {
   // Memoized callback function for handling box click events
   const onBoxClick = useCallback(
     (index) => {
@@ -17,7 +17,12 @@ const Board = React.memo(({ board, handleClick }) => {
       {/* Map over each value in the board array */}
       {board.map((value, index) => (
         // Render Box component for each value in the board array
-        <Box key={index} value={value} onClick={() => onBoxClick(index)} />
+        <Box
+          key={index}
+          value={value}
+          onClick={() => onBoxClick(index)}
+          isWinningBox={winningSequence && winningSequence.includes(index)}
+        />
       ))}
     </div>
   );

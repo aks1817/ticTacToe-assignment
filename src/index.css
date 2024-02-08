@@ -1,5 +1,3 @@
-/* src/index.css */
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -49,6 +47,6 @@ body {
   font-weight: bold;
 }
 
-.winning-combo {
-  background-color: yellow;
+.winning-box {
+  background-color: #74e291;
 }

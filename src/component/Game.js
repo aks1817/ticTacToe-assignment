@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import Board from "./Board";
-import { winningCombos } from "../Constants/constants"; // Assuming winningCombos is imported correctly from constants
+import { winningCombos } from "../Constants/constants";
 
 // Game component
 const Game = React.memo(() => {
@@ -9,6 +9,7 @@ const Game = React.memo(() => {
   const [winner, setWinner] = useState(null); // State for the winner of the game
   const [player, setPlayer] = useState(null); // State for the current player (X or O)
   const [cpuPlayer, setCpuPlayer] = useState(null); // State for the CPU player (X or O)
+  const [winningSequence, setWinningSequence] = useState([]); // State for winning sequence
 
   // Function to handle player selection (X or O)
   const handlePlayerSelect = useCallback((selectedSymbol) => {
@@ -56,6 +57,7 @@ const Game = React.memo(() => {
       const [a, b, c] = winningCombos[i];
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         setWinner(currentPlayer); // Set the winner
+        setWinningSequence(winningCombos[i]);
         return true;
       }
     }
@@ -80,7 +82,11 @@ const Game = React.memo(() => {
       {/* Render the board and winner message if player is selected */}
       {player && (
         <>
-          <Board board={board} handleClick={handleClick} />{" "}
+          <Board
+            board={board}
+            handleClick={handleClick}
+            winningSequence={winningSequence}
+          />{" "}
           {/* Render the Board component */}
           {/* Render the winner message if there's a winner */}
           {winner && (
