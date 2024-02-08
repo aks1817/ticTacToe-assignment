@@ -41,7 +41,7 @@ const Game = () => {
     const newBoard = [...board];
     newBoard[computerMove] = cpuPlayer;
     setBoard(newBoard);
-    checkWinner(newBoard, player);
+    checkWinner(newBoard, cpuPlayer);
   };
 
   const checkWinner = (board, currentPlayer) => {
