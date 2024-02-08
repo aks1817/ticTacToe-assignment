@@ -1,0 +1,54 @@
+/* src/index.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.game {
+  text-align: center;
+}
+
+.select-player {
+  margin-bottom: 20px;
+}
+
+.select-player button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 0 10px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 10px;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  font-size: 24px;
+  background-color: #eee;
+  border: 1px solid #aaa;
+  cursor: pointer;
+}
+
+.box:hover {
+  background-color: #ddd;
+}
+
+.winner {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.winning-combo {
+  background-color: yellow;
+}
