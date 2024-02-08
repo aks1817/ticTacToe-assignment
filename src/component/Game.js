@@ -63,6 +63,13 @@ const Game = () => {
         return true;
       }
     }
+
+    if (board.every((square) => square !== null)) {
+      setWinner("draw");
+      return true;
+    }
+
+    return false;
   };
 
   return (
@@ -77,7 +84,11 @@ const Game = () => {
       {player && (
         <>
           <Board board={board} handleClick={handleClick} />
-          {winner && <div className="winner">{winner} wins!</div>}
+          {winner && (
+            <div className="winner">
+              {winner} {winner !== "draw" ? "wins!" : ""}
+            </div>
+          )}
         </>
       )}
     </div>
