@@ -84,3 +84,7 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+.disable-pointer-events {
+  pointer-events: none;
+  opacity: 0.5;
+}

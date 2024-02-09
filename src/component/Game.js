@@ -10,6 +10,7 @@ const Game = React.memo(() => {
   const [player, setPlayer] = useState(null); // State for the current player (X or O)
   const [cpuPlayer, setCpuPlayer] = useState(null); // State for the CPU player (X or O)
   const [winningSequence, setWinningSequence] = useState([]); // State for winning sequence
+  const [loading, setLoading] = useState(false); // State for loading while we get api response
 
   // Function to handle player selection (X or O)
   const handlePlayerSelect = useCallback((selectedSymbol) => {
@@ -26,7 +27,9 @@ const Game = React.memo(() => {
       setBoard(newBoard); // Update the board state
       const isWinnerFound = checkWinner(newBoard, player); // Check if there's a winner after the current move
       if (isWinnerFound) return; // If there's a winner, return
+      setLoading(true); // Set loading state while CPU is making a move
       await makeComputerMove(newBoard); // Make a move for the CPU player
+      setLoading(false); // Reset loading state after CPU move
     },
     [board, player, winner]
   );
@@ -75,6 +78,7 @@ const Game = React.memo(() => {
     setPlayer(null); // Reset the player
     setCpuPlayer(null); // Reset the CPU player
     setWinningSequence([]); // Reset winning sequence
+    setLoading(false); //Resets load
   }, []);
 
   // Render the game
@@ -91,11 +95,14 @@ const Game = React.memo(() => {
       {/* Render the board and winner message if player is selected */}
       {player && (
         <>
-          <Board
-            board={board}
-            handleClick={handleClick}
-            winningSequence={winningSequence}
-          />{" "}
+          {/* Conditionally apply the disable-pointer-events class */}
+          <div className={loading ? "disable-pointer-events" : ""}>
+            <Board
+              board={board}
+              handleClick={handleClick}
+              winningSequence={winningSequence}
+            />
+          </div>
           {/* Render the Board component */}
           {/* Render the winner message if there's a winner */}
           {winner && (
