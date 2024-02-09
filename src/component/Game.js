@@ -68,6 +68,15 @@ const Game = React.memo(() => {
     return false; // Return false if there's no winner
   }, []);
 
+  // Function to start a new game
+  const handleNewGame = useCallback(() => {
+    setBoard(Array(9).fill(null)); // Reset the board
+    setWinner(null); // Reset the winner
+    setPlayer(null); // Reset the player
+    setCpuPlayer(null); // Reset the CPU player
+    setWinningSequence([]); // Reset winning sequence
+  }, []);
+
   // Render the game
   return (
     <div className="game">
@@ -90,8 +99,13 @@ const Game = React.memo(() => {
           {/* Render the Board component */}
           {/* Render the winner message if there's a winner */}
           {winner && (
-            <div className="winner">
-              {winner} {winner !== "draw" ? "wins!" : ""}
+            <div>
+              <div className="winner">
+                {winner} {winner !== "draw" ? "wins!" : ""}
+              </div>
+              <div className="new-game">
+                <button onClick={handleNewGame}>New Game</button>
+              </div>
             </div>
           )}
         </>

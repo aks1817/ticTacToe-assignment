@@ -68,3 +68,19 @@ body {
   border-color: #26b3a6;
   color: #fff;
 }
+
+.new-game {
+  margin-top: 20px;
+}
+
+.new-game button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #ff5f6d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
